@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Game</title>
+<link rel="icon" href="images/hat.png" type="image/png">
+<link rel="stylesheet" href="styleMessage.css">
+
+<style>
+.memory-container{
+    text-align:center;
+    padding-top:80px;
+}
+
+.memory-container h1{
+    font-family:"Titan One";
+    color:#e72a36;
+    margin-bottom:40px;
+}
+
+.memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 150px); /* 4 images par ligne */
+    gap:20px;
+    justify-content:center;
+}
+
+.card{
+    width:150px;
+    height:150px;
+    background:#fff;
+    border-radius:15px;
+    border:3px solid #333;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    transition: transform 0.3s;
+}
+
+.card.flip {
+    transform: scale(1.05); /* petit effet visuel au flip */
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<div class="memory-container">
+
+<h1>Match the photo pairs</h1>
+
+<div class="memory-grid" id="grid"></div>
+
+</div>
+
+</div>
+
+<script>
+const images = [
+    "./images/1.jpg",
+    "./images/2.jpg",
+    "./images/8.jpeg",
+    "./images/9.jpeg",
+    "./images/10.jpeg",
+    "./images/11.jpeg"
+];
+
+let cards = [...images, ...images];
+cards.sort(() => Math.random() - 0.5);
+
+let grid = document.getElementById("grid");
+
+let first = null;
+let lock = false;
+let matches = 0;
+
+cards.forEach(src => {
+    let card = document.createElement("div");
+    card.className = "card";
+    card.dataset.image = src;
+    card.innerHTML = "❤️";
+
+    card.onclick = function() {
+        if (lock || card.classList.contains("flip")) return;
+
+        card.classList.add("flip");
+        card.innerHTML = `<img src="${src}">`;
+
+        if (!first) {
+            first = card;
+            return;
+        }
+
+        lock = true;
+
+        if (first.dataset.image === card.dataset.image) {
+            matches++;
+            first = null;
+            lock = false;
+
+            if (matches === images.length) {
+                setTimeout(() => {
+                    window.location = "memories.html";
+                }, 1000);
+            }
+        } else {
+            setTimeout(() => {
+                card.innerHTML = "❤️";
+                first.innerHTML = "❤️";
+                card.classList.remove("flip");
+                first.classList.remove("flip");
+                first = null;
+                lock = false;
+            }, 800);
+        }
+    };
+
+    grid.appendChild(card);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Memories</title>
+<link rel="icon" href="images/hat.png" type="image/png">
+
+<link rel="stylesheet" href="styleMessage.css">
+
+<style>
+
+body{
+margin:0;
+font-family:"Sriracha";
+background:linear-gradient(120deg,#1b1b2f,#3a0ca3,#ff4d6d);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+color:white;
+}
+
+/* progress bar */
+
+.progress{
+position:absolute;
+top:20px;
+width:200px;
+height:6px;
+background:#ffffff40;
+border-radius:10px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+width:60%;
+background:#ff4d6d;
+}
+
+/* card */
+
+.memory-card{
+
+background:#00000080;
+padding:40px;
+border-radius:20px;
+text-align:center;
+width:320px;
+backdrop-filter:blur(10px);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+}
+
+.memory-card h1{
+margin-bottom:20px;
+color:#ffb3c6;
+}
+
+.memory-card img{
+
+width:220px;
+border-radius:10px;
+margin-bottom:15px;
+
+}
+
+.memory-card p{
+opacity:0.9;
+}
+
+.memory-btn{
+
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#ff4d6d;
+color:white;
+font-size:16px;
+cursor:pointer;
+
+}
+
+.memory-btn:hover{
+background:#ff2e63;
+}
+
+/* floating hearts */
+
+.heart{
+
+position:absolute;
+color:#ffb3c6;
+font-size:20px;
+animation:float 8s linear infinite;
+
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="progress">
+<div class="progress-bar"></div>
+</div>
+
+<div class="memory-card">
+
+<h1>That One Time...</h1>
+
+<img src="./images/2.jpg">
+
+<p>Our favorite memory.</p>
+
+<p>
+Every moment with you feels like a scene
+from a movie I'd watch on repeat.
+</p>
+
+<button class="memory-btn" onclick="next()">One last thing...</button>
+<audio autoplay loop>
+  <source src="musique.mp3" type="audio/mpeg">
+  Votre navigateur ne supporte pas la lecture audio.
+</audio>
+</div>
+
+<script>
+
+function next(){
+
+window.location="message.html"
+
+}
+
+/* floating hearts */
+
+for(let i=0;i<20;i++){
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="💗"
+
+heart.style.left=Math.random()*100+"%"
+heart.style.animationDuration=(5+Math.random()*5)+"s"
+
+document.body.appendChild(heart)
+
+}
+
+</script>
+
+</body>
+
+</html>
